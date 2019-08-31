@@ -44,8 +44,8 @@ export default {
     encounters: {
       type: Array
     },
-    patient : {
-      type:Object
+    patient: {
+      type: Object
     }
   },
   computed: {
@@ -68,30 +68,35 @@ export default {
   },
   methods: {
     formflowRequest: function(encounter) {
-
       var homeAddress = this.patient.address[0];
-      var birthday = this.patient.birthDate.replace("-","").replace("-","").substr(2,6);
+      var birthday = this.patient.birthDate
+        .replace('-', '')
+        .replace('-', '')
+        .substr(2, 6);
 
-      var dagteller = (Math.floor(Math.random() * 1000) + 1).toString().padStart(3,'0');
-      var maleFemale = this.patient.gender == "male" ? 1 : 0;
+      var dagteller = (Math.floor(Math.random() * 1000) + 1)
+        .toString()
+        .padStart(3, '0');
+      
       var baseNr = birthday + dagteller;
-      var modFunction = function(nr) { return 97 - (nr % 97); };
+      var modFunction = function(nr) {
+        return 97 - (nr % 97);
+      };
       var toCheck = baseNr;
-      if(birthday.startsWith('2')) {
+      if (birthday.startsWith('2')) {
         toCheck = '2' + baseNr;
       }
       var careDate = null;
-      if(encounter != null && encounter.period != undefined)
-      {
-          careDate = encounter.period.start.slice(0,19);
+      if (encounter != null && encounter.period != undefined) {
+        careDate = encounter.period.start.slice(0, 19);
       }
-      var checkDigit = modFunction(baseNr);
-      var insz = baseNr + checkDigit.toString().padStart(2,'0');
+      var checkDigit = modFunction(toCheck);
+      var insz = baseNr + checkDigit.toString().padStart(2, '0');
       this.$doctarClient
         .post('/certificates/formflow', {
           careDate: careDate,
           CareReceiver: {
-            Inss: insz,            
+            Inss: insz,
             name: this.patient.name[0].family,
             firstName: this.patient.name[0].given.join(' '),
             birthDate: this.patient.birthDate,
@@ -113,11 +118,10 @@ export default {
                 ct1: '110',
                 ct2: '110'
               },
-              mutualityCode: 105 
-
+              mutualityCode: 105
             },
             address: {
-              street: homeAddress.line.join(" "),
+              street: homeAddress.line.join(' '),
               postalCode: homeAddress.postalCode,
               city: homeAddress.city,
               province: 'Oost-Vlaanderen',
@@ -135,8 +139,8 @@ export default {
           var formflowId = data.formFlowId;
           var custmlink =
             'http://localhost:7778/Certificate/FormFlow/' + formflowId;
-            window.open(link.href);
-         // window.open(custmlink);
+          window.open(link.href);
+          // window.open(custmlink);
         });
     },
     yearChange(key) {
