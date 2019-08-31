@@ -1,46 +1,32 @@
 <template>
   <div class="container">
     <h1 class="title">{{fullname}}</h1>
-    <h2 class="subtitle">
-      <strong>{{firstname}}</strong> is a
-      <span v-if="patient.birthDate">
-        <strong>{{age}}</strong> year old
-      </span>
-      <strong v-if="patient.maritalStatus">{{patient.maritalStatus.text | lowerCase}}</strong>
-      <strong v-if="patient.gender">{{patient.gender}}</strong>
-      <span v-if="languages">
-        who speaks
-        <strong>{{languages}}</strong>
-      </span>.
+    <h2 class="subtitle"><strong>{{firstname}}</strong> is a
+      <span v-if="patient.birthDate"><strong> {{age}}</strong> year old</span> 
+      <strong v-if="patient.maritalStatus"> {{patient.maritalStatus.text | lowerCase}}</strong> 
+      <strong v-if="patient.gender"> {{patient.gender}}</strong>
+      <span v-if="languages"> who speaks <strong>{{languages}}</strong></span>.
     </h2>
 
     <div class="columns">
       <div v-if="patient.birthDate" class="column">
-        birthdate
-        <br />
+        birthdate<br />
         <strong>{{patient.birthDate}}</strong>
       </div>
       <div v-if="homeAddress" class="column">
-        address <strong>{{homeAddress.use}}</strong>
-        <br />
-        <strong>
-                    {{homeAddress.line.join(' ')}}
-          <br />
-          {{homeAddress.city}}, {{homeAddress.state}} {{homeAddress.postalCode}}
-        </strong>
+        address<br />
+        <strong>{{homeAddress.line.join(' ')}}<br>
+        {{homeAddress.city}}, {{homeAddress.state}} {{homeAddress.postalCode}}</strong>
       </div>
       <div v-if="phone" class="column">
-        phone
-        <br />
+        phone<br />
         <strong>{{phone}}</strong>
       </div>
       <div v-if="email" class="column">
-        email
-        <br />
+        email<br />
         <strong>{{email}}</strong>
       </div>
     </div>
-   
   </div>
 </template>
 
@@ -52,7 +38,7 @@ export default {
     patient: {
       type: Object
     }
-  },  
+  },
   computed: {
     fullname() {
       return `${this.patient.name[0].given.join(' ')} ${
@@ -66,14 +52,9 @@ export default {
       return moment().diff(this.patient.birthDate, 'years');
     },
     homeAddress() {
-      var addressd = this.patient.address && this.patient.address.find(a => a.use === 'home');
-      if(addressd)
-      {
-        return addressd;
-      }
-      else {
-        return this.patient.address[0];
-      }
+      return (
+        this.patient.address && this.patient.address.find(a => a.use === 'home')
+      );
     },
     phone() {
       if (this.patient.telecom) {
