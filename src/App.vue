@@ -5,9 +5,12 @@
     <div v-else>
       <patient-demographics :patient="patient"></patient-demographics>
       <hr />
+      
       <allergies :allergies="allergyIntolerance"></allergies>
       <hr />
       <medications :medications="medications"></medications>
+       <hr />
+      <encounters :encounters="encounters" :patient="patient"></encounters>
       <hr />
       <conditions :conditions="conditions"></conditions>
     </div>
@@ -16,13 +19,15 @@
 
 <script>
 import 'bulma/css/bulma.css';
-import 'bulma-timeline';
+import 'bulma-timeline/dist/css/bulma-timeline.min.css';
+
 import PulseLoader from 'vue-spinner/src/PulseLoader.vue';
 
 import smartClient from './smartClient';
 
 import Allergies from './components/Allergies';
 import Conditions from './components/Conditions';
+import Encounters from './components/Encounters';
 import Medications from './components/Medications';
 import PatientDemographics from './components/PatientDemographics';
 import Error from './components/Error';
@@ -32,6 +37,7 @@ export default {
   components: {
     Allergies,
     Conditions,
+    Encounters,
     Medications,
     PatientDemographics,
     PulseLoader,
@@ -44,7 +50,8 @@ export default {
       medications: null,
       conditions: null,
       loading: true,
-      error: null
+      error: null,
+      encounters: null
     };
   },
   async mounted() {
@@ -55,7 +62,7 @@ export default {
         type: 'AllergyIntolerance'
       });
       const medications = await smart.patient.api.search({
-        type: 'MedicationOrder',
+        type: 'MedicationRequest',
         query: { patient: this.patient.id }
       });
       if (medications.status === 'success') {
@@ -65,6 +72,7 @@ export default {
           medications.data.entry.map(m => m.resource);
       }
       this.conditions = await smart.patient.api.fetchAll({ type: 'Condition' });
+      this.encounters = await smart.patient.api.fetchAll({type: "Encounter"});
       this.loading = false;
     } catch (resp) {
       this.loading = false;

@@ -3,7 +3,7 @@
     <div class="tile">
       <article class="tile notification is-danger">
         <div class="content">
-          <p class="title">{{allergy.substance.text | upperCase}}</p>
+          <p class="title" v-if="allergy.substance">{{allergy.substance.text | upperCase}}</p>
           <p class="subtitle">{{allergy.clinicalStatus}}</p>
           <div class="content">
             <ul>

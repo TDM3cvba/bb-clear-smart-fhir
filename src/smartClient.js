@@ -1,6 +1,6 @@
 const getSmartClient = () =>
   new Promise((resolve, reject) => {
-    if (process.env.NODE_ENV === 'development') {
+    if (process.env.NODE_ENV === 'development' && false) {
       /* eslint-disable-next-line */
     const smart = FHIR.client({
 
@@ -10,8 +10,7 @@ const getSmartClient = () =>
         // patientId: '1316024'
 
         // === SMART on FHIR sandbox ===
-        serviceUrl: 'https://r2.smarthealthit.org',
-        patientId: 'smart-1137192'
+        serviceUrl: 'https://r4.smarthealthit.org'
       });
 
       resolve(smart);
