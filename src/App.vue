@@ -72,7 +72,7 @@ export default {
           medications.data.entry.map(m => m.resource);
       }
       this.conditions = await smart.patient.api.fetchAll({ type: 'Condition' });
-      this.encounters = await smart.patient.api.fetchAll({type: "Encounter"});
+      this.encounters = await smart.patient.api.fetchAll({type: 'Encounter'});
       this.loading = false;
     } catch (resp) {
       this.loading = false;
