@@ -87,7 +87,6 @@ formflowRequest: function(encounter) {
             Nihii: fakeNihiiCareProvider
           }
         })
-
         .then(response => response.data)
         .then(data => {
           var link = data.links.find(l => l.rel == 'certificate_flow');
