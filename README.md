@@ -23,6 +23,80 @@ Or click [here](http://launch.smarthealthit.org/ehr.html?app=https%3A%2F%2Ftieno
 
 ![Demo](./bb-clear-smart-fhir-demo.gif)
 
+## code @ components/Encounters.vue
+
+```javascript
+formflowRequest: function(encounter) {
+      var homeAddress = this.patient.address[0];
+      var careDate = null;
+      if (encounter != null && encounter.period != undefined) {
+        careDate = encounter.period.start.slice(0, 19); //remove timezone
+      }
+
+      var inss = this.fakeInss;
+      var fakeProvince = "Oost-Vlaanderen";
+      var fakeCountry = "Belgium";
+      var fakeNihiiCareProvider = "17385467004";
+      var gender = 0;
+      switch(this.patient.gender)
+      {
+          case "male":
+            gender = 1;
+            break;
+          case "female":
+            gender = 2;
+            break;
+      }
+      return this.$doctarClient
+        .post('/certificates/formflow', {
+          careDate: careDate,
+          CareReceiver: {
+            Inss: inss,
+            name: this.patient.name[0].family,
+            firstName: this.patient.name[0].given.join(' '),
+            birthDate: this.patient.birthDate,
+            gender: gender,
+            email: this.patient.telecom
+              .filter(t => t.system == 'email')
+              .map(e => {
+                if (e.value && e.value.length > 0) {
+                  return e.value;
+                }
+                return '';
+              })
+              .join(''),
+            InsurabilitySituation: {
+              CodeEntitled: {
+                ct1: '110',
+                ct2: '110'
+              },
+              mutualityCode: 105
+            },
+            address: {
+              street: homeAddress.line.join(' '),
+              postalCode: homeAddress.postalCode,
+              city: homeAddress.city,
+              province: fakeProvince,
+              country: fakeCountry
+            }
+          },
+          PackageProvider: {
+            name: "demo-fhir-emd"
+          },
+          CareProvider: {
+            Nihii: fakeNihiiCareProvider
+          }
+        })
+
+        .then(response => response.data)
+        .then(data => {
+          var link = data.links.find(l => l.rel == 'certificate_flow');
+          var formflowId = data.formFlowId;
+          window.open(link.href);
+        });
+    }
+```
+
 ## Local setup for development and testing
 
 - Prerequisites: Install current versions of [Node](https://nodejs.org/en) and [Yarn](https://yarnpkg.com/lang/en/) (alternatively npm).
