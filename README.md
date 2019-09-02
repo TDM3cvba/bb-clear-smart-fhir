@@ -12,12 +12,14 @@ Built with [Vue.js](https://vuejs.org/), continous integration with [Travis](htt
 ## Run the app using SMART App Launcher
 
 1. Go to http://launch.smarthealthit.org/
-2. Leave all settings as they are (FHIR Version R2/DSTU2).
+2. Leave all settings as they are (FHIR Version R4).
 3. At the bottom of the page, set the App Launch Url to: `https://tieno.github.io/bb-clear-smart-fhir/launch.html`
 4. Click `Launch App`
 5. Login as practitioner
 6. Select a patient
 7. You will see the SMART on FHIR app populated with data from the Sandbox / Electronic Health Record system!
+
+Or click [here](http://launch.smarthealthit.org/ehr.html?app=https%3A%2F%2Ftieno.github.io%2Fbb-clear-smart-fhir%2Flaunch.html%3Flaunch%3DeyJhIjoiMSIsImYiOiIxIn0%26iss%3Dhttps%253A%252F%252Flaunch.smarthealthit.org%252Fv%252Fr4%252Ffhir&user=) for a direct link
 
 ![Demo](./bb-clear-smart-fhir-demo.gif)
 
