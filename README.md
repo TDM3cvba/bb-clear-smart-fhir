@@ -1,5 +1,5 @@
-# bb-clear-smart-fhir
-SMART on FHIR implementation of the clear blue button health record reference
+# demo-emd
+SMART on FHIR implementation, forked from https://github.com/stfnh/bb-clear-smart-fhir. Purpose is to demonstrate doctar formflow request api
 
 [![Build Status](https://travis-ci.com/Tieno/bb-clear-smart-fhir.svg?branch=master)](https://travis-ci.com/Tieno/bb-clear-smart-fhir) [![tested with jest](https://img.shields.io/badge/tested_with-jest-99424f.svg)](https://github.com/facebook/jest)
 

@@ -132,7 +132,9 @@ export default {
               country: 'Belgium'
             }
           },
-          PackageProvider: {},
+          PackageProvider: {
+            name: "demo-fhir-emd"
+          },
           CareProvider: {
             Nihii: ''
           }
