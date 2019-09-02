@@ -96,6 +96,19 @@ export default {
       }
 
       var inss = this.fakeInss;
+      var fakeProvince = "Oost-Vlaanderen";
+      var fakeCountry = "Belgium";
+      var fakeNihiiCareProvider = "17385467004";
+      var gender = 0;
+      switch(this.patient.gender)
+      {
+          case "male":
+            gender = 1;
+            break;
+          case "female":
+            gender = 2;
+            break;
+      }
       return this.$doctarClient
         .post('/certificates/formflow', {
           careDate: careDate,
@@ -104,10 +117,7 @@ export default {
             name: this.patient.name[0].family,
             firstName: this.patient.name[0].given.join(' '),
             birthDate: this.patient.birthDate,
-            gender:
-              this.patient.gender == null || this.patient.gender == 'male'
-                ? 1
-                : 2,
+            gender: gender,
             email: this.patient.telecom
               .filter(t => t.system == 'email')
               .map(e => {
@@ -128,15 +138,15 @@ export default {
               street: homeAddress.line.join(' '),
               postalCode: homeAddress.postalCode,
               city: homeAddress.city,
-              province: 'Oost-Vlaanderen',
-              country: 'Belgium'
+              province: fakeProvince,
+              country: fakeCountry
             }
           },
           PackageProvider: {
             name: "demo-fhir-emd"
           },
           CareProvider: {
-            Nihii: ''
+            Nihii: fakeNihiiCareProvider
           }
         })
 
