@@ -54,6 +54,11 @@ export default {
       encounters: null
     };
   },
+  errorCaptured(error) {
+    this.error = error;
+    this.$emit('error', error);
+    //https://markus.oberlehner.net/blog/vue-error-handling-with-renderless-components/
+  },
   async mounted() {
     try {
       const smart = await smartClient();

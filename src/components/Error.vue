@@ -1,6 +1,8 @@
 <template>
   <div class="notification is-danger">
-    <strong>{{error.statusText}}</strong><br />
+    <strong v-if="error.statusText">{{error.statusText}}</strong>
+    <strong v-else>{{error}}</strong>
+    <br />
     <span v-if="errorDiagnostics">{{errorDiagnostics}}</span>
   </div>
 </template>

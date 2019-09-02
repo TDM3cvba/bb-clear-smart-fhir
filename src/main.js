@@ -11,6 +11,6 @@ const base = axios.create({
 Vue.prototype.$doctarClient = base;
 Vue.config.productionTip = false;
 
-new Vue({
+export const serverBus = new Vue({
   render: h => h(App)
 }).$mount('#app');
