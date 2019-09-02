@@ -38,6 +38,7 @@ formflowRequest: function(encounter) {
       var fakeCountry = "Belgium";
       var fakeNihiiCareProvider = "17385467004";
       var gender = 0;
+      
       switch(this.patient.gender)
       {
           case "male":
@@ -88,9 +89,8 @@ formflowRequest: function(encounter) {
           }
         })
         .then(response => response.data)
-        .then(data => {
-          var link = data.links.find(l => l.rel == 'certificate_flow');
-          var formflowId = data.formFlowId;
+        .then(for => {
+          var link = data.links.find(l => l.rel == 'certificate_flow');         
           window.open(link.href);
         });
     }
