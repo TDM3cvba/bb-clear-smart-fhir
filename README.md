@@ -6,7 +6,7 @@
 # Doctar formflow request API - [link here](https://qua-doctarwebtool.azurewebsites.net/Mederi/Doctar.Api/swagger/index.html?urls.primaryName=Public%2FV1)
 This SMART on FHIR implementation is forked from https://github.com/stfnh/bb-clear-smart-fhir. Its purpose is to demonstrate the flow described below.
 
-The current use case of the Doctar formflow request API assumes no user authentication flow between client (server) and the Doctar API (). The JWT token is mainly to track and identify use.
+The current use case of the Doctar formflow request API assumes no user authentication flow between client (server) and the Doctar API. The JWT token is mainly to track and identify use.
 
 1. Client sends data to the API endpoint. 
 2. Server responds with a 201 Created and a collection of links
@@ -35,6 +35,9 @@ Or click [here](http://launch.smarthealthit.org/ehr.html?app=https%3A%2F%2Ftieno
 
 ```javascript
 formflowRequest: function(encounter) {
+      var mywindow = window.open(); //we open the window on the UI thread, during the user click event, 
+      //so the browser doesn't block it as a popup
+      //other solution is to make the request fully synchronous     
       var homeAddress = this.patient.address[0];
       var careDate = null;
       if (encounter != null && encounter.period != undefined) {
@@ -46,7 +49,6 @@ formflowRequest: function(encounter) {
       var fakeCountry = "Belgium";
       var fakeNihiiCareProvider = "17385467004";
       var gender = 0;
-      
       switch(this.patient.gender)
       {
           case "male":
@@ -96,10 +98,12 @@ formflowRequest: function(encounter) {
             Nihii: fakeNihiiCareProvider
           }
         })
+
         .then(response => response.data)
-        .then(for => {
-          var link = data.links.find(l => l.rel == 'certificate_flow');         
-          window.open(link.href);
+        .then(data => {
+          var link = data.links.find(l => l.rel == 'certificate_flow');
+          mywindow.location.href = link.href;
+          mywindow.focus();
         });
     }
 ```

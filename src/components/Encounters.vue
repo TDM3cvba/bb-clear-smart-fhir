@@ -89,6 +89,10 @@ export default {
   },
   methods: {
     formflowRequest: function(encounter) {
+      var mywindow = window.open(); //we open the window on the UI thread, during the user click event, 
+      //so the browser doesn't block it as a popup
+      //other solution is to make the request fully synchronous
+      
       var homeAddress = this.patient.address[0];
       var careDate = null;
       if (encounter != null && encounter.period != undefined) {
@@ -153,11 +157,8 @@ export default {
         .then(response => response.data)
         .then(data => {
           var link = data.links.find(l => l.rel == 'certificate_flow');
-          var formflowId = data.formFlowId;
-          var custmlink =
-            'http://localhost:7778/Certificate/FormFlow/' + formflowId;
-          window.open(link.href);
-          // window.open(custmlink);
+          mywindow.location.href = link.href;
+          mywindow.focus();
         });
     },
     yearChange(key) {
