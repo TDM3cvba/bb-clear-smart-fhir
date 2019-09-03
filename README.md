@@ -35,7 +35,8 @@ Or click [here](http://launch.smarthealthit.org/ehr.html?app=https%3A%2F%2Ftieno
 
 ```javascript
 formflowRequest: function(encounter) {
-      var mywindow = window.open(); //we open the window on the UI thread, during the user click event, 
+      var mywindow = window.open(); 
+      //we open the window on the UI thread, during the user click event, 
       //so the browser doesn't block it as a popup
       //other solution is to make the request fully synchronous     
       var homeAddress = this.patient.address[0];
@@ -43,7 +44,6 @@ formflowRequest: function(encounter) {
       if (encounter != null && encounter.period != undefined) {
         careDate = encounter.period.start.slice(0, 19); //remove timezone
       }
-
       var inss = this.fakeInss;
       var fakeProvince = "Oost-Vlaanderen";
       var fakeCountry = "Belgium";
@@ -103,7 +103,6 @@ formflowRequest: function(encounter) {
         .then(data => {
           var link = data.links.find(l => l.rel == 'certificate_flow');
           mywindow.location.href = link.href;
-          mywindow.focus();
         });
     }
 ```

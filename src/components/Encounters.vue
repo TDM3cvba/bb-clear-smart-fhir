@@ -89,16 +89,15 @@ export default {
   },
   methods: {
     formflowRequest: function(encounter) {
-      var mywindow = window.open(); //we open the window on the UI thread, during the user click event, 
+      var mywindow = window.open(); 
+      //we open the window on the UI thread, during the user click event, 
       //so the browser doesn't block it as a popup
-      //other solution is to make the request fully synchronous
-      
+      //other solution is to make the request fully synchronous     
       var homeAddress = this.patient.address[0];
       var careDate = null;
       if (encounter != null && encounter.period != undefined) {
         careDate = encounter.period.start.slice(0, 19); //remove timezone
       }
-
       var inss = this.fakeInss;
       var fakeProvince = "Oost-Vlaanderen";
       var fakeCountry = "Belgium";
@@ -147,7 +146,7 @@ export default {
             }
           },
           PackageProvider: {
-            name: "demo-fhir-emd"
+            name: 'demo-fhir-emd'
           },
           CareProvider: {
             Nihii: fakeNihiiCareProvider
@@ -158,7 +157,6 @@ export default {
         .then(data => {
           var link = data.links.find(l => l.rel == 'certificate_flow');
           mywindow.location.href = link.href;
-          mywindow.focus();
         });
     },
     yearChange(key) {
