@@ -1,13 +1,19 @@
 # demo-emd
-SMART on FHIR implementation, forked from https://github.com/stfnh/bb-clear-smart-fhir. Purpose is to demonstrate doctar formflow request api
-
 [![Build Status](https://travis-ci.com/Tieno/bb-clear-smart-fhir.svg?branch=master)](https://travis-ci.com/Tieno/bb-clear-smart-fhir) [![tested with jest](https://img.shields.io/badge/tested_with-jest-99424f.svg)](https://github.com/facebook/jest)
 
-A sample [SMART on FHIR](http://docs.smarthealthit.org/) app, implementing the [Blue Button Health Record Format](https://github.com/blue-button/bbClear). Work in progress.
+- Built with [Vue.js](https://vuejs.org/), continous integration with [Travis](https://travis-ci.org/stfnh/bb-clear-smart-fhir), automated unit tests by [Jest](https://jestjs.io/). Hosted on GitHub Pages (needs to be launched from a SMART on FHIR sandbox, see below).
 
-Built with [Vue.js](https://vuejs.org/), continous integration with [Travis](https://travis-ci.org/stfnh/bb-clear-smart-fhir), automated unit tests by [Jest](https://jestjs.io/). Hosted on GitHub Pages (needs to be launched from a SMART on FHIR sandbox, see below).
+The current use case of the Doctar formflow request API assumes no user authentication flow between client (server) and the Doctar API ([link here](https://qua-doctarwebtool.azurewebsites.net/Mederi/Doctar.Api/swagger/index.html?urls.primaryName=Public%2FV1)). The JWT token is mainly to track and identify use.
+1. Client sends data to the API endpoint. 
+2. Server responds with a 201 Created and a collection of links
+3. Client forwards user to the certificate_flow link
+4. User authenticates on Doctar app and completes the e-attest form
 
-# Getting started
+There are other (security) scenarios possible, but this is the easiest and simplest one.
+
+This SMART on FHIR implementation is forked from https://github.com/stfnh/bb-clear-smart-fhir. Its purpose is to demonstrate the flow described above.
+
+# Getting started, launching the app
 
 ## Run the app using SMART App Launcher
 
