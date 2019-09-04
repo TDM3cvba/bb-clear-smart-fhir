@@ -34,6 +34,19 @@ Or click [here](http://launch.smarthealthit.org/ehr.html?app=https%3A%2F%2Ftieno
 ## code @ components/Encounters.vue
 
 ```javascript
+var jwtToken = '[JWT TOKEN HERE]';
+var endpoint = 'https://[BASE_ENDPOINT]';
+const doctarClient = axios.create({
+  baseURL:
+    endpoint,
+  headers: {
+    Authorization:
+     'Bearer ' + jwtToken
+  }
+});
+
+[......]
+
 formflowRequest: function(encounter) {
       var mywindow = window.open(); 
       //we open the window on the UI thread, during the user click event, 
