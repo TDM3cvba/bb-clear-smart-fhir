@@ -100,7 +100,7 @@ export default {
       }
       var inss = this.fakeInss;
       var fakeProvince = "Oost-Vlaanderen";
-      var fakeCountry = "Belgium";
+      var fakeCountry = "BE";
       var fakeNihiiCareProvider = "17385467004";
       var gender = 0;
       switch(this.patient.gender)
