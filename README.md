@@ -1,5 +1,5 @@
 # demo-emd
-[![Build Status](https://travis-ci.com/Tieno/bb-clear-smart-fhir.svg?branch=master)](https://travis-ci.com/Tieno/bb-clear-smart-fhir) [![tested with jest](https://img.shields.io/badge/tested_with-jest-99424f.svg)](https://github.com/facebook/jest)
+[![Build Status](https://travis-ci.com/Tieno/bb-clear-smart-fhir.svg?branch=master)](https://travis-ci.com/TDM3cvba/bb-clear-smart-fhir) [![tested with jest](https://img.shields.io/badge/tested_with-jest-99424f.svg)](https://github.com/facebook/jest)
 
 - Built with [Vue.js](https://vuejs.org/), continous integration with [Travis](https://travis-ci.org/stfnh/bb-clear-smart-fhir), automated unit tests by [Jest](https://jestjs.io/). Hosted on GitHub Pages (needs to be launched from a SMART on FHIR sandbox, see below).
 
@@ -21,13 +21,13 @@ There are other (security) scenarios possible, but this is the easiest and simpl
 
 1. Go to http://launch.smarthealthit.org/
 2. Leave all settings as they are (FHIR Version R4).
-3. At the bottom of the page, set the App Launch Url to: `https://tieno.github.io/bb-clear-smart-fhir/launch.html`
+3. At the bottom of the page, set the App Launch Url to: `https://tdm3cvba.github.io/bb-clear-smart-fhir/launch.html`
 4. Click `Launch App`
 5. Login as practitioner
 6. Select a patient
 7. You will see the SMART on FHIR app populated with data from the Sandbox / Electronic Health Record system!
 
-Or click [here](http://launch.smarthealthit.org/ehr.html?app=https%3A%2F%2Ftieno.github.io%2Fbb-clear-smart-fhir%2Flaunch.html%3Flaunch%3DeyJhIjoiMSIsImYiOiIxIn0%26iss%3Dhttps%253A%252F%252Flaunch.smarthealthit.org%252Fv%252Fr4%252Ffhir&user=) for a direct link
+Or click [here](http://launch.smarthealthit.org/ehr.html?app=https%3A%2F%2Ftdm3cvba.github.io%2Fbb-clear-smart-fhir%2Flaunch.html%3Flaunch%3DeyJhIjoiMSIsImYiOiIxIn0%26iss%3Dhttps%253A%252F%252Flaunch.smarthealthit.org%252Fv%252Fr4%252Ffhir&user=) for a direct link
 
 ![Demo](./bb-clear-smart-fhir-demo.gif)
 
