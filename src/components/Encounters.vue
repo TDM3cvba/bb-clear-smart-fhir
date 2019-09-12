@@ -95,14 +95,22 @@ export default {
       //other solution is to make the request fully synchronous     
       var homeAddress = this.patient.address[0];
       var careDate = null;
+      var performances = [];
       if (encounter != null && encounter.period != undefined) {
         careDate = encounter.period.start.slice(0, 19); //remove timezone
+        performances.push({
+          nomenclatureCode : "101076"
+        });
+        performances.push({
+          nomenclatureCode : "101091"
+        });
       }
       var inss = this.fakeInss;
       var fakeProvince = "Oost-Vlaanderen";
       var fakeCountry = "BE";
       var fakeNihiiCareProvider = "17385467004";
       var gender = 0;
+
       switch(this.patient.gender)
       {
           case "male":
@@ -150,7 +158,8 @@ export default {
           },
           CareProvider: {
             Nihii: fakeNihiiCareProvider
-          }
+          },
+          Performances: performances
         })
 
         .then(response => response.data)
