@@ -47,21 +47,29 @@ const doctarClient = axios.create({
 
 [......]
 
-formflowRequest: function(encounter) {
+transactionRequest: function(encounter) {
       var mywindow = window.open(); 
       //we open the window on the UI thread, during the user click event, 
       //so the browser doesn't block it as a popup
       //other solution is to make the request fully synchronous     
       var homeAddress = this.patient.address[0];
       var careDate = null;
+      var performances = [];
       if (encounter != null && encounter.period != undefined) {
         careDate = encounter.period.start.slice(0, 19); //remove timezone
+        performances.push({
+          nomenclatureCode : "101076"
+        });
+        performances.push({
+          nomenclatureCode : "101091"
+        });
       }
       var inss = this.fakeInss;
       var fakeProvince = "Oost-Vlaanderen";
       var fakeCountry = "BE";
       var fakeNihiiCareProvider = "17385467004";
       var gender = 0;
+
       switch(this.patient.gender)
       {
           case "male":
@@ -105,11 +113,12 @@ formflowRequest: function(encounter) {
             }
           },
           PackageProvider: {
-            name: "demo-fhir-emd"
+            name: 'demo-fhir-emd'
           },
           CareProvider: {
             Nihii: fakeNihiiCareProvider
-          }
+          },
+          Performances: performances
         })
 
         .then(response => response.data)
@@ -117,7 +126,51 @@ formflowRequest: function(encounter) {
           var link = data.links.find(l => l.rel == 'certificate_flow');
           mywindow.location.href = link.href;
         });
-    }
+    },
+    incompleteTransactionRequest: function(validate) {
+      if(validate == false)
+      {
+          var mywindow = window.open(); 
+      }      
+      //we open the window on the UI thread, during the user click event, 
+      //so the browser doesn't block it as a popup
+      //other solution is to make the request fully synchronous     
+      var inss = this.fakeInss;
+      var config = {};
+      if(validate === true)
+      {
+        config = {
+          headers : {
+              'x-validate': true
+          }          
+        }
+      };
+      var fakeNihiiCareProvider = "17385467004";
+      var gender = 0;
+      return this.$doctarClient
+        .post('/certificates/formflow', {
+          CareReceiver: {
+            Inss: inss,
+          },
+          PackageProvider: {
+            name: 'demo-fhir-emd'
+          },
+          CareProvider: {
+            Nihii: "invalidriziv"
+          }
+        }, config)
+
+        
+        .then(response => response.data)
+        .then(data => {
+          var link = data.links.find(l => l.rel == 'certificate_flow');
+          mywindow.location.href = link.href;
+        }).catch(errorResponse => {
+          
+          this.errorResponse = errorResponse.response.data;
+          
+        });
+    },
 ```
 
 ## Local setup for development and testing

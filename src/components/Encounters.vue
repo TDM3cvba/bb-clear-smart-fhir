@@ -2,8 +2,23 @@
   <div class="container">
     <h1 class="title">E-Invoicing - Encounters</h1>
     <div class="columns is-multiline">
-      <button class="button is-success is-small" @click="formflowRequest">Doctar</button>
+      <button class="button is-success is-small" @click="transactionRequest">Doctar E-Invoice - Patient</button>
+ | 
+      <button class="button is-danger is-small" @click="incompleteTransactionRequest(false)">Incomplete Request - x-validate = false</button>
+ |
+      <button class="button is-danger is-small" @click="incompleteTransactionRequest(true)">Incomplete Request - x-validate = true</button>
     </div>
+    <div class="notification is-danger" v-if="errorResponse">
+      <h2>Http status: {{errorResponse.status}} - {{errorResponse.title}}</h2>
+      <ol>
+        <li v-for="(value, name, index) in errorResponse.errors" :key="index"><strong>{{name}}</strong>
+            <ul>
+              <li v-for="item in value" :key="item">{{item}}</li>
+              </ul>
+
+        </li>
+      </ol>
+      </div>
     <div class="timeline">
       <div v-for="(encounter, key) in sortedEncounters" :key="encounter.id">
         <header v-if="key==0" class="timeline-header">
@@ -24,7 +39,7 @@
 
           <button
             class="button is-success is-small"
-            @click="formflowRequest(encounter)"
+            @click="transactionRequest(encounter)"
           >E-Invoice With Doctar</button>
         </timeline-item>
 
@@ -47,6 +62,9 @@ export default {
       type: Array
     },
     patient: {
+      type: Object
+    }, 
+    errorResponse : {
       type: Object
     }
   },
@@ -88,7 +106,9 @@ export default {
     }
   },
   methods: {
-    formflowRequest: function(encounter) {
+  
+    
+    transactionRequest: function(encounter) {
       var mywindow = window.open(); 
       //we open the window on the UI thread, during the user click event, 
       //so the browser doesn't block it as a popup
@@ -166,6 +186,50 @@ export default {
         .then(data => {
           var link = data.links.find(l => l.rel == 'certificate_flow');
           mywindow.location.href = link.href;
+        });
+    },
+    incompleteTransactionRequest: function(validate) {
+      if(validate == false)
+      {
+          var mywindow = window.open(); 
+      }      
+      //we open the window on the UI thread, during the user click event, 
+      //so the browser doesn't block it as a popup
+      //other solution is to make the request fully synchronous     
+      var inss = this.fakeInss;
+      var config = {};
+      if(validate === true)
+      {
+        config = {
+          headers : {
+              'x-validate': true
+          }          
+        }
+      };
+      var fakeNihiiCareProvider = "17385467004";
+      var gender = 0;
+      return this.$doctarClient
+        .post('/certificates/formflow', {
+          CareReceiver: {
+            Inss: inss,
+          },
+          PackageProvider: {
+            name: 'demo-fhir-emd'
+          },
+          CareProvider: {
+            Nihii: "invalidriziv"
+          }
+        }, config)
+
+        
+        .then(response => response.data)
+        .then(data => {
+          var link = data.links.find(l => l.rel == 'certificate_flow');
+          mywindow.location.href = link.href;
+        }).catch(errorResponse => {
+          
+          this.errorResponse = errorResponse.response.data;
+          
         });
     },
     yearChange(key) {
