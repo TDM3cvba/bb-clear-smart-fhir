@@ -6,7 +6,7 @@
 # Doctar transaction request API - [link here](https://qua-doctarwebtool.azurewebsites.net/Mederi/Doctar.Api/swagger/index.html?urls.primaryName=Public%2FV1)
 This SMART on FHIR implementation is forked from https://github.com/stfnh/bb-clear-smart-fhir. Its purpose is to demonstrate the flow described below.
 
-The current use case of the Doctar transaction request API assumes no delegetaed authorization flow between client (server) and the Doctar API. The JWT token is mainly to track and identify use the vendor. The user is authenticated and authorized when he/she gets forwarded to the webclient.
+The current use case of the Doctar transaction request API assumes no delegated authorization flow between client (server) and the Doctar API. The JWT token is to track, identify and authorize  the vendor. The user is authenticated and authorized when he/she gets forwarded to the webclient.
 
 1. Client sends data to the API endpoint. 
 2. Server responds with a 201 Created and a collection of links
