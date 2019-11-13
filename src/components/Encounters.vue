@@ -141,7 +141,7 @@ export default {
             break;
       }
       return this.$doctarClient
-        .post('/certificates/formflow', {
+        .post('/certificates/transaction', {
           careDate: careDate,
           CareReceiver: {
             Inss: inss,
@@ -184,7 +184,7 @@ export default {
 
         .then(response => response.data)
         .then(data => {
-          var link = data.links.find(l => l.rel == 'certificate_flow');
+          var link = data.links.find(l => l.rel == 'certificate_webflow');
           mywindow.location.href = link.href;
         });
     },
@@ -209,7 +209,7 @@ export default {
       var fakeNihiiCareProvider = "17385467004";
       var gender = 0;
       return this.$doctarClient
-        .post('/certificates/formflow', {
+        .post('/certificates/transaction', {
           CareReceiver: {
             Inss: inss,
           },
@@ -224,7 +224,7 @@ export default {
         
         .then(response => response.data)
         .then(data => {
-          var link = data.links.find(l => l.rel == 'certificate_flow');
+          var link = data.links.find(l => l.rel == 'certificate_webflow');
           mywindow.location.href = link.href;
         }).catch(errorResponse => {
           

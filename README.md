@@ -80,7 +80,7 @@ transactionRequest: function(encounter) {
             break;
       }
       return this.$doctarClient
-        .post('/certificates/formflow', {
+        .post('/certificates/transaction', {
           careDate: careDate,
           CareReceiver: {
             Inss: inss,
@@ -123,7 +123,7 @@ transactionRequest: function(encounter) {
 
         .then(response => response.data)
         .then(data => {
-          var link = data.links.find(l => l.rel == 'certificate_flow');
+          var link = data.links.find(l => l.rel == 'certificate_webflow');
           mywindow.location.href = link.href;
         });
     },
@@ -148,7 +148,7 @@ transactionRequest: function(encounter) {
       var fakeNihiiCareProvider = "17385467004";
       var gender = 0;
       return this.$doctarClient
-        .post('/certificates/formflow', {
+        .post('/certificates/transaction', {
           CareReceiver: {
             Inss: inss,
           },
@@ -163,7 +163,7 @@ transactionRequest: function(encounter) {
         
         .then(response => response.data)
         .then(data => {
-          var link = data.links.find(l => l.rel == 'certificate_flow');
+          var link = data.links.find(l => l.rel == 'certificate_webflow');
           mywindow.location.href = link.href;
         }).catch(errorResponse => {
           
