@@ -10,7 +10,7 @@ The current use case of the Doctar transaction request API assumes no delegated 
 
 1. Client sends data to the API endpoint. 
 2. Server responds with a 201 Created and a collection of links
-3. Client forwards user to the certificate_flow link
+3. Client forwards user to the certificate_webflow link
 4. User authenticates on Doctar app and completes the e-attest form
 
 There are other (security) scenarios possible, but this is the easiest and simplest one.
