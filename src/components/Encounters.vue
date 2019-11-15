@@ -163,7 +163,7 @@ export default {
                 ct1: '110',
                 ct2: '110'
               },
-              mutualityCode: 105
+              mutualityCode: "105"
             },
             address: {
               street: homeAddress.line.join(' '),
@@ -186,7 +186,11 @@ export default {
         .then(data => {
           var link = data.links.find(l => l.rel == 'certificate_webflow');
           mywindow.location.href = link.href;
-        });
+        }).catch(errorResponse => {
+          
+          this.errorResponse = errorResponse.response.data;
+          
+        });;
     },
     incompleteTransactionRequest: function(validate) {
       if(validate == false)

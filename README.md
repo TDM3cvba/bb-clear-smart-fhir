@@ -102,7 +102,7 @@ transactionRequest: function(encounter) {
                 ct1: '110',
                 ct2: '110'
               },
-              mutualityCode: 105
+              mutualityCode: "105"
             },
             address: {
               street: homeAddress.line.join(' '),
